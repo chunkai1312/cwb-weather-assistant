@@ -13675,6 +13675,7 @@ var CWBClient = function () {
 }();
 
 exports.default = CWBClient;
+module.exports = exports['default'];
 
 },{"./locations":194,"isomorphic-fetch":11,"xml2js":174}],193:[function(require,module,exports){
 'use strict';
@@ -13690,6 +13691,7 @@ var _cwb_client2 = _interopRequireDefault(_cwb_client);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _cwb_client2.default;
+module.exports = exports['default'];
 
 },{"./cwb_client":192}],194:[function(require,module,exports){
 'use strict';
