@@ -7,7 +7,7 @@
     "build": "npm run build:clean && npm run build:babel && npm run build:browserify && npm run build:uglify",
     "build:clean": "rimraf lib/* dist/*",
     "build:babel": "babel src -d lib",
-    "build:browserify": "browserify src/index.js -s CWBClient -t [ babelify --presets [ es2015 stage-0 ] ] -o dist/cwb-weather-assistant.js",
+    "build:browserify": "browserify src/index.js -s CWBClient -t [babelify] -o dist/cwb-weather-assistant.js",
     "build:uglify": "uglifyjs dist/cwb-weather-assistant.js --comments '/!/' -m screw_ie8=true -c screw_ie8=true,unused=false -o dist/cwb-weather-assistant.min.js",
     "test": "mocha --compilers js:babel-core/register",
     "lint": "eslint src test",
