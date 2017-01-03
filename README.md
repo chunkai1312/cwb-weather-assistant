@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-$ npm install --save fqb
+$ npm install --save cwb-weather-assistant
 ```
 
 ### Browser
