@@ -1,4 +1,4 @@
-# cwb-weather-assistant
+# cwb-weather-assistant [![Build Status][travis-image]][travis-url]
 
 > Simple CWB client to fetch weather assistant for JavaScript
 
@@ -97,3 +97,6 @@ TODO
 ## License
 
 MIT © [Chun-Kai Wang](https://github.com/chunkai1312)
+
+[travis-image]: https://travis-ci.org/chunkai1312/cwb-weather-assistant.svg?branch=master
+[travis-url]: https://travis-ci.org/chunkai1312/cwb-weather-assistant
