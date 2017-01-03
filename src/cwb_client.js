@@ -1,88 +1,110 @@
+import 'isomorphic-fetch'
 import { parseString } from 'xml2js'
+import * as locations from './locations'
 
 class CWBClient {
 
-  static locations = {
-    TAIPEI_CITY: 'F-C0032-009',       // 台北市
-    NEW_TAIPEI_CITY: 'F-C0032-010',   // 新北市
-    KEELUNG_CITY: 'F-C0032-011',      // 基隆市
-    HUALIEN_COUNTY: 'F-C0032-012',    // 花蓮縣
-    YILAN_COUNTY: 'F-C0032-013',      // 宜蘭縣
-    KINMEN_COUNTY: 'F-C0032-014',     // 金門縣
-    PENGHU_COUNTY: 'F-C0032-015',     // 澎湖縣
-    TAINAN_CITY: 'F-C0032-016',       // 台南市
-    KAOHSIUNG_CITY: 'F-C0032-017',    // 高雄市
-    CHIAYI_COUNTY: 'F-C0032-018',     // 嘉義縣
-    CHIAYI_CITY: 'F-C0032-019',       // 嘉義市
-    MIAOLI_COUNTY: 'F-C0032-020',     // 苗栗縣
-    TAICHUNG_CITY: 'F-C0032-021',     // 台中市
-    TAOYUAN_CITY: 'F-C0032-022',      // 桃園市
-    HSINCHU_COUNTY: 'F-C0032-023',    // 新竹縣
-    HSINCHU_CITY: 'F-C0032-024',      // 新竹市
-    PINGTUNG_COUNTY: 'F-C0032-025',   // 屏東縣
-    NANTOU_COUNTY: 'F-C0032-026',     // 南投縣
-    TAITUNG_COUNTY: 'F-C0032-027',    // 台東縣
-    CHANGHUA_COUNTY: 'F-C0032-028',   // 彰化線
-    YUNLIN_COUNTY: 'F-C0032-029',     // 雲林縣
-    LIENCHIANG_COUNTY: 'F-C0032-030'  // 連江縣
-  }
-
   /**
-   * Creates an instance of CWBClient.
+   * Create a new CWBClient.
    *
+   * @public
    * @param {string} apiKey - The api key.
    */
   constructor (apiKey) {
+    if (typeof apiKey === 'undefined') {
+      throw new Error('Missing apiKey.')
+    }
+
+    if (typeof apiKey !== 'string') {
+      throw new Error('Expected apiKey to be a string.')
+    }
+
     this.apiKey = apiKey
   }
 
+  /**
+   * Fetch weather assistant from CWB Open Data API.
+   *
+   * @public
+   * @param  {object} options
+   * @param  {string} options.location - The available location.
+   * @return {Promise} The result of the fetch.
+   */
   fetch (options = {}) {
     if (options.hasOwnProperty('location')) {
-      if (CWBClient.locations.hasOwnProperty(options.location)) {
-        return this.getWeatherAssistant(CWBClient.locations[options.location])
+      if (locations.hasOwnProperty(options.location)) {
+        return this.getWeatherAssistant(locations[options.location])
       } else {
         throw new Error('Invalid location.')
       }
     }
 
-    const promises = Object.keys(CWBClient.locations)
-      .map(location => this.getWeatherAssistant(CWBClient.locations[location]))
+    const promises = Object.keys(locations)
+      .map(location => this.getWeatherAssistant(locations[location]))
 
     return Promise.all(promises)
   }
 
   /**
-   * Get weather assistant by data id of the location.
+   * List available locations.
    *
-   * @param {string} dataid - The data id.
+   * @return {Array} The available location list.
    */
-  getWeatherAssistant (dataid) {
-    return fetch(`http://opendata.cwb.gov.tw/opendataapi?dataid=${dataid}&authorizationkey=${this.apiKey}`)
-      .then(response => response.text())
-      .then(text => this.parseXml(text))
-      .then(data => this.parseData(data))
+  locations () {
+    return Object.keys(locations)
   }
 
   /**
-   * Parse XML string by using xml2js
+   * Get weather assistant by data id of the location.
    *
-   * @param {string} xmlString - The XML string.
-   * @return {object} result
+   * @private
+   * @param  {string} dataid - The data id.
+   * @return {Promise} The result of the request.
+   */
+  getWeatherAssistant (dataid) {
+    return fetch(`http://opendata.cwb.gov.tw/opendataapi?dataid=${dataid}&authorizationkey=${this.apiKey}`)
+      .then(this.parseResponse)
+      .then(this.parseXml)
+      .then(this.parseData)
+  }
+
+  /**
+   * Parse the fetch response.
+   *
+   * @private
+   * @param  {object} response - The fetch response.
+   * @return {string} The response text.
+   */
+  parseResponse (response) {
+    if (response.headers.get('content-type') !== 'application/xml') {
+      throw new Error('Temporary Network Error. Please try again later.')
+    }
+
+    return response.text()
+  }
+
+  /**
+   * Parse XML string by using xml2js.
+   *
+   * @private
+   * @param  {string} xmlString - The XML string.
+   * @return {object} - The result of parse.
    */
   parseXml (xmlString) {
     return new Promise((resolve, reject) => {
       parseString(xmlString, { trim: true, explicitArray: false }, (err, result) => {
-        if (err) reject(err)
+        if (err) reject(new Error('Temporary Network Error. Please try again later.'))
         resolve(result)
       })
     })
   }
 
   /**
-   * Parse data from the result of xml2js.parsingString()
+   * Parse data from the result of xml2js.parsingString().
    *
-   * @param {object} data - The result of xml2js.parsingString().
-   * @return {object} result
+   * @private
+   * @param  {object} data - The result of xml2js.parsingString().
+   * @return {object} The result of parse.
    */
   parseData (data) {
     const { dataid, dataset } = data.cwbopendata
