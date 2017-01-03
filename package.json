@@ -10,7 +10,8 @@
     "build:browserify": "browserify src/index.js -s CWBClient -t [ babelify --presets [ es2015 stage-0 ] ] -o dist/cwb-weather-assistant.js",
     "build:uglify": "uglifyjs dist/cwb-weather-assistant.js --comments '/!/' -m screw_ie8=true -c screw_ie8=true,unused=false -o dist/cwb-weather-assistant.min.js",
     "test": "mocha --compilers js:babel-core/register",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "prepublish": "npm run lint"
   },
   "repository": {
     "type": "git",
