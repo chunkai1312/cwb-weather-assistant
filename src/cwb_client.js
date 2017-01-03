@@ -93,7 +93,7 @@ class CWBClient {
   parseXml (xmlString) {
     return new Promise((resolve, reject) => {
       parseString(xmlString, { trim: true, explicitArray: false }, (err, result) => {
-        if (err) reject(new Error('Temporary Network Error. Please try again later.'))
+        if (err) reject(err)
         resolve(result)
       })
     })
