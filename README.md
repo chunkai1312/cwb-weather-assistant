@@ -1,4 +1,4 @@
-# cwb-weather-assistant [![Build Status][travis-image]][travis-url] [![Coverage][codecov-image]][codecov-url]
+# cwb-weather-assistant [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Test coverage]][codecov-image]][codecov-url]
 
 > Simple CWB client to fetch weather assistant for JavaScript
 
@@ -94,6 +94,8 @@ cwb.locations()  // an array for list of locations
 
 MIT © [Chun-Kai Wang](https://github.com/chunkai1312)
 
+[npm-image]: https://img.shields.io/npm/v/cwb-weather-assistant.svg
+[npm-url]: https://npmjs.org/package/cwb-weather-assistant
 [travis-image]: https://travis-ci.org/chunkai1312/cwb-weather-assistant.svg?branch=master
 [travis-url]: https://travis-ci.org/chunkai1312/cwb-weather-assistant
 [codecov-image]: https://codecov.io/gh/chunkai1312/cwb-weather-assistant/branch/master/graph/badge.svg
