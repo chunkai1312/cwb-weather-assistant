@@ -1,4 +1,4 @@
-# cwb-weather-assistant [![Build Status][travis-image]][travis-url]
+# cwb-weather-assistant [![Build Status][travis-image]][travis-url] [![Coverage][codecov-image]][codecov-url]
 
 > Simple CWB client to fetch weather assistant for JavaScript
 
@@ -86,10 +86,6 @@ cwb.locations()  // an array for list of locations
 | YUNLIN_COUNTY      | 雲林縣 |
 | LIENCHIANG_COUNTY  | 連江縣 |
 
-## Test
-
-TODO
-
 ## Reference
 
 [交通部中央氣象局-開放資料平臺](http://opendata.cwb.gov.tw)
@@ -100,3 +96,5 @@ MIT © [Chun-Kai Wang](https://github.com/chunkai1312)
 
 [travis-image]: https://travis-ci.org/chunkai1312/cwb-weather-assistant.svg?branch=master
 [travis-url]: https://travis-ci.org/chunkai1312/cwb-weather-assistant
+[codecov-image]: https://codecov.io/gh/chunkai1312/cwb-weather-assistant/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/chunkai1312/cwb-weather-assistant
