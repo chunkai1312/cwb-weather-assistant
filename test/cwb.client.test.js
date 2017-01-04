@@ -1,9 +1,9 @@
+import fs from 'fs'
+import path from 'path'
 import { expect } from 'chai'
 import nock from 'nock'
 import CWBClient from '../src/cwb_client'
 import * as locations from '../src/locations'
-import fs from 'fs'
-import path from 'path'
 
 const mockResponse = fs.readFileSync(path.resolve(__dirname, 'mock.xml'), 'utf-8')
 
@@ -52,6 +52,35 @@ describe('CWBClient', () => {
     it('should throw error if location unavailable', () => {
       const cwb = new CWBClient('api-key')
       expect(() => cwb.fetch({ location: 'UNKNOWN' })).to.throw(Error)
+    })
+
+    it('should throw error if no response xml file', () => {
+      nock.cleanAll()
+      nock('http://opendata.cwb.gov.tw')
+        .get(`/opendataapi?dataid=${locations['TAIPEI_CITY']}&authorizationkey=api-key`)
+        .reply(200, {})
+
+      const cwb = new CWBClient('api-key')
+      return cwb.fetch({ location: 'TAIPEI_CITY' })
+        .catch(err => {
+          expect(err).to.be.an('error')
+        })
+    })
+
+    it('should throw error if response invalid xml file', () => {
+      nock.cleanAll()
+      nock('http://opendata.cwb.gov.tw')
+        .defaultReplyHeaders({
+          'Content-Type': 'application/xml'
+        })
+        .get(`/opendataapi?dataid=${locations['TAIPEI_CITY']}&authorizationkey=api-key`)
+        .reply(200, {})
+
+      const cwb = new CWBClient('api-key')
+      return cwb.fetch({ location: 'TAIPEI_CITY' })
+        .catch(err => {
+          expect(err).to.be.an('error')
+        })
     })
   })
 
