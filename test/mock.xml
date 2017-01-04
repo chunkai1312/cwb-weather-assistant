@@ -1,0 +1,31 @@
+<cwbopendata xmlns="urn:cwb:gov:tw:cwbcommon:0.1">
+  <identifier>c9b80f1e-caa9-f7e0-7599-3095b285c251</identifier>
+  <sender>weather@cwb.gov.tw</sender>
+  <sent>2017-01-01T00:00:00+08:00</sent>
+  <status>Actual</status>
+  <msgType>Issue</msgType>
+  <scope>Public</scope>
+  <dataid>F-C0032-009</dataid>
+  <source>Weather Forecast Center</source>
+  <dataset>
+    <datasetInfo>
+      <datasetDescription>WeatherAssistant</datasetDescription>
+      <datasetLanguage>zh-TW</datasetLanguage>
+      <issueTime>2017-01-01T12:00:00+08:00</issueTime>
+    </datasetInfo>
+    <location>
+      <locationName>台北市</locationName>
+      <stationId>46692</stationId>
+      <geocode>63</geocode>
+    </location>
+    <parameterSet>
+      <parameterSetName>天氣小幫手描述</parameterSetName>
+      <parameter>
+        <parameterValue>多雲到晴，白天溫暖，早晚稍涼，請注意保暖。</parameterValue>
+      </parameter>
+      <parameter>
+        <parameterValue>明日天氣穩定，氣溫變化大。</parameterValue>
+      </parameter>
+    </parameterSet>
+  </dataset>
+</cwbopendata>
