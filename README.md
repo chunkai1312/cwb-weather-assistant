@@ -1,4 +1,4 @@
-# cwb-weather-assistant [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Test coverage]][codecov-image]][codecov-url]
+# cwb-weather-assistant [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Test coverage][codecov-image]][codecov-url]
 
 > Simple CWB client to fetch weather assistant for JavaScript
 
