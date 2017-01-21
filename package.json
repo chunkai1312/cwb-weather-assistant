@@ -13,6 +13,11 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "eslint src test"
   },
+  "files": [
+    "index.js",
+    "lib",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chunkai1312/cwb-weather-assistant.git"
